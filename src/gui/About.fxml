@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="66.0" prefWidth="185.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="436.0" prefWidth="579.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="TOP_LEFT" prefHeight="253.0" prefWidth="349.0" text="About">
+      <Label alignment="TOP_LEFT" prefHeight="29.0" prefWidth="185.0" text="About">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
