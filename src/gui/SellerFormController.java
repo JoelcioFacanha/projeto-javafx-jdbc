@@ -1,8 +1,10 @@
 package gui;
 
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -17,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Seller;
@@ -34,7 +37,19 @@ public class SellerFormController implements Initializable {
 	@FXML
 	private TextField txtNome;
 	@FXML
+	private TextField txtEmail;
+	@FXML
+	private DatePicker dpBirthDate;
+	@FXML
+	private TextField txtBaseSalary;
+	@FXML
 	private Label lblErroNome;
+	@FXML
+	private Label lblErroEmail;
+	@FXML
+	private Label lblErroBirthDate;
+	@FXML
+	private Label lblErroBaseSalary;
 	@FXML
 	private Button btSave;
 	@FXML
@@ -116,10 +131,13 @@ public class SellerFormController implements Initializable {
 
 	public void initializeNodes() {
 		Constraints.setTextFieldInteger(txtId);
-		Constraints.setTextFieldMaxLength(txtNome, 30);
+		Constraints.setTextFieldMaxLength(txtNome, 100);
+		Constraints.setTextFieldMaxLength(txtEmail, 60);
+		Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
+		Constraints.setTextFieldDouble(txtBaseSalary);
 	}
 
-	public void updateFormDate() {
+	public void updateFormData() {
 
 		if (entity == null) {
 			throw new IllegalStateException("Entity was null");
@@ -127,6 +145,13 @@ public class SellerFormController implements Initializable {
 
 		txtId.setText(String.valueOf(entity.getId()));
 		txtNome.setText(entity.getName());
+		txtEmail.setText(entity.getEmail());
+		Locale.setDefault(Locale.US);
+		txtBaseSalary.setText(String.format("%.2f", entity.getBaseSalary()));
+
+		if (entity.getBirthDate() != null) {
+			dpBirthDate.setValue(entity.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		}
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {
